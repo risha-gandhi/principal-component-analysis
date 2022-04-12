@@ -1,9 +1,21 @@
+# Principal Component Analysis - Customer Segmentation
+
+A pilot survey was conducted of 30 individuals to understand their different attitudes towards discount stores (e.g., K-Mart), which usually come with low levels of service versus departmental stores (e.g., Macys) which come with higher levels of service. Respondents were asked their opinion on a 0-9 agree-disagree scale (where
+0 indicates strongly disagree and 9 indicates strongly agree) on the following questions.
+1. I never go back to a store that had treated me with disrespect.
+2. I find salespeople who fawn over me irritating, I just expect them to courteous.
+3. I have a lot of questions when I shop, I greatly appreciate a salesperson who is willing to spend time answering my questions.
+4. I care little for the fancy displays in departmental stores.
+5. Discount stores are much more of a bargain than departmental stores.
+
+
+
 ``` r
 rm(list = ls())
 cat("\014")
 ```
 
- \#\# Loading, summarizing and scaling the data
+## Loading, summarizing and scaling the data
 
 ``` r
 library(psych)

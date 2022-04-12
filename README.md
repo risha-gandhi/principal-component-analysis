@@ -101,13 +101,13 @@ cor(data.scale)
 pairs(data.scale)
 ```
 
-![](PCA---Github_files/figure-markdown_github/unnamed-chunk-3-1.png)
+![](./unnamed-chunk-3-1.png)
 
 ``` r
 corrplot(cor(data.scale), order="hclust")
 ```
 
-![](PCA---Github_files/figure-markdown_github/unnamed-chunk-3-2.png)
+![](./unnamed-chunk-3-2.png)
 Based on the initial exploratory analysis, it seems like X2 and X3 are
 highly negatively correlated. X1 and X3 seem to be highly positively
 correlated. X4 and X5 are also relatively positively correlated.
@@ -156,7 +156,7 @@ retain 90% of the variablity in the data set or its explanatory power.
 plot(data.pc, type='l', main = "Scree Plot")
 ```
 
-![](PCA---Github_files/figure-markdown_github/unnamed-chunk-5-1.png) We
+![](./unnamed-chunk-5-1.png) We
 should retain 2 factors because that represents the number of factors
 before the “kink”. Additionally above the variance of 1, there are 2
 factors, which is another way to determine how many factors we should
@@ -185,7 +185,7 @@ abline(h = 0, v = 0, col = "gray60")
 title("Risha", line = 2)
 ```
 
-![](PCA---Github_files/figure-markdown_github/unnamed-chunk-6-1.png)
+![](./unnamed-chunk-6-1.png)
 
 X1 and X3 could be clustered together since they are close together. X4
 and X5 could be in another cluster. X2 is further away from all the

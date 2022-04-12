@@ -1,0 +1,92 @@
+---
+title: 'Principal Component Analysis on Survey Data'
+author: "Risha Gandhi"
+date: "April 2022"
+output: word_document
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r}
+rm(list = ls())
+cat("\014")
+```
+## Loading, summarizing and scaling the data
+```{r}
+library(psych)
+data = read.csv("assg1.csv")
+summary(data)
+describe(data)
+
+data.scale = scale(data[,2:6])
+summary(data.scale)
+describe(data.scale)
+```
+We scale the 5 variables to make them comparable. The means of variables are all 0 and standard deviations are all 1. The medians of variables vary from -.24 to .28. 
+
+## Correlation matrix between variables and visualizing the correlation plot
+
+```{r}
+cor(data.scale)
+pairs(data.scale)
+corrplot(cor(data.scale), order="hclust")
+```
+Based on the initial exploratory analysis, it seems like X2 and X3 are highly negatively correlated. X1 and X3 seem to be highly positively correlated. X4 and X5 are also relatively positively correlated. Individuals tend to 1) give X1 and X3 similar ratings and 2) hold opposite opinions on X2 and X3.
+
+
+## PCA on the data and results
+
+```{r}
+data.pc = prcomp(data.scale)
+summary(data.pc)
+data.pc$rotation
+```
+The cumulative proportion of PC1 and PC2 is 0.9, so we can reduce the dimensionality of the original dataset from 5 variables to 2, and still retain 90% of the variablity in the data set or its explanatory power.
+
+## Five equations that formally define relationship between the original attributes and the factors from the PCA
+
+$$PC1 = -0.555 \cdot X1 +0.571 \cdot X2 -0.58 \cdot X3 - 0.017 \cdot X4 + 0.174 \cdot X5 $$
+$$PC2 = 0.232 \cdot X1 +0.212 \cdot X2 +0.157 \cdot X3 + 0.686 \cdot X4 + 0.637 \cdot X5 $$
+$$PC3 = -0.28 \cdot X1 -0.183 \cdot X2 + 0.311 \cdot X3 -0.561 \cdot X4 + 0.691 \cdot X5 $$
+$$PC4 = -0.723 \cdot X1 -0.462 \cdot X2 + 0.187 \cdot X3 + 0.461 \cdot X4 - 0.125 \cdot X5 $$
+$$PC5 = 0.191 \cdot X1 -0.618 \cdot X2 - 0.713 \cdot X3 + 0.041 \cdot X4 + 0.267 \cdot X5 $$
+
+## Determining how many factors to keep using Scree Plot
+
+```{r}
+plot(data.pc, type='l', main = "Scree Plot")
+
+```
+We should retain 2 factors because that represents the number of factors before the "kink". Additionally above the variance of 1, there are 2 factors, which is another way to determine how many factors we should keep. 
+
+## Intuitive names of first 2 factors using the equations that quantify the relationship between the original attributes and the factors from the PCA
+
+PC1's correlation with X1, X2 and X3 is quite similar in magnitude but different in direction. It is highest positively correlated for X2 and negatively correlated of about the same magnitude with X1 and X3. So these people know what they want when they enter the store, don't have many questions, don't need help from salespeople and do not care if they are being treated with disrespect. They could be termed Mission-Driven shoppers
+
+PC2 is highly positively correlated with X4 and X5. This indicates that these customers do not care about fancy displays in departmental stores and prefer discount stores for bargaining purposes. These could be termed Bargain Hunters.
+
+
+## Plot of all the consumers on a two-dimensional map based on the first two principal components
+```{r}
+
+biplot(data.pc, xlim=c(-.25,.25), ylim=c(-.25,.25), xlab = "Mission-Driven Shoppers", ylab = "Bargain Hunters")
+abline(h = 0, v = 0, col = "gray60")
+title("Risha", line = 2)
+```
+
+X1 and X3 could be clustered together since they are close together. X4 and X5 could be in another cluster. X2 is further away from all the others or other segments so in total there would be 3 segments. 
+
+## Describing the characteristics of each segment. Also, discussing the relationship between the segment characteristics and the original attributes
+
+The first segment (X1 and X3) has high negative correlation to "Mission-Driven Shoppers", so individuals in this segment would enjoy talking with salespeople. The second segment (X4 and X5) has high positive correlation to "Bargain Hunters", so people in the segment are looking for better deal and cheaper price. The last segment (X2), the opposite of the first segment, has high positive correlation to "Mission-Driven Shoppers", so customers in the segment have their own plans and prefer not to be interrupted by salespeople.
+
+## Most profitable segment
+
+The most profitable segment will be the first segment with X1 and X3, because they require assistance and care more about how salespeople treat them. It would be most likely that customer service is important to customers in this segment. As a result, salespeople could persuade customers buy more than they plan to buy and thus create higher revenue. 
+
+
+

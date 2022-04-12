@@ -2,7 +2,9 @@
 title: 'Principal Component Analysis on Survey Data'
 author: "Risha Gandhi"
 date: "April 2022"
-output: word_document
+output: 
+  html_document:
+    keep_md: true
 urlcolor: blue
 ---
 
